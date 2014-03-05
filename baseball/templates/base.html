@@ -1,0 +1,374 @@
+<html lang=en>
+    <head>
+        <title> {% block title %}UNC Athletics{% endblock %} </title>
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        
+        <link href="{{ STATIC_URL }}css/reset.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="{{ STATIC_URL }}css/slickQuiz.css" media="screen" rel="stylesheet" type="text/css">
+        
+            
+        <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet">
+            
+          
+        <script src="{{ STATIC_URL }}js/slickQuiz-config.js"></script>
+        <script src="{{ STATIC_URL }}js/slickQuiz.js"></script>
+        <script src="{{ STATIC_URL }}js/master.js"></script> 
+        
+            
+        
+            
+    <!---data tables script-->      
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}js/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+        <script src="{{ STATIC_URL }}js/DataTables-1.9.4/media/js/jquery.dataTables.min.js"></script>
+        
+    <!---hi charts script-->        
+        <script src="{{ STATIC_URL }}js/Highcharts-3.0.9/js/highcharts.js"></script>
+        <script src="{{ STATIC_URL }}js/Highcharts-3.0.9/js/modules/exporting.js"></script>
+        
+    <!---tabs script       
+        <script src="{{ STATIC_URL }}js/jquery-ui-1.10.4.custom/js/jquery-1.10.2.js"></script>     
+        <script src="{{ STATIC_URL }}js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
+          
+  --> 
+
+   
+    
+        <script>
+    //this is the datatables function    
+            $(document).ready(function() {
+            $('#player_list').dataTable( {
+            
+            "bPaginate": false,
+            "bAutoWidth": false,
+            "bInfo": false,
+            "aaSorting": [[ 30, "desc" ]]
+            
+            } );
+            
+            } );
+            
+    //high charts on detail.html
+    
+    $(document).ready(function() {
+
+    var options = {
+        chart: {
+            renderTo: 'container_detailchart',
+            type: 'spline'
+        },
+        series: [{}]
+        };
+
+            $.getJSON('data.json', function(data) {
+                options.series[0].data = data;
+                var chart = new Highcharts.Chart(options);
+            });
+        
+        });
+    
+
+    
+    
+    //this is height and weight chart on Player_list
+    
+    $(function () {
+        $('#container').highcharts({
+            
+    
+            
+            chart: {
+                type: 'scatter',
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Height Versus Weight of different positions'
+            },
+            subtitle: {
+                text: 'Source: Go Heels.com'
+            },
+            xAxis: {
+                title: {
+                    enabled: true,
+                    text: 'Height (inches)'
+                },
+                startOnTick: true,
+                endOnTick: true,
+                showLastLabel: true
+            },
+            yAxis: {
+                title: {
+                    text: 'Weight (lbs)'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                backgroundColor: '#FFFFFF',
+                borderWidth: 1
+            },
+            plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<b>{series.name}</b><br>',
+                        pointFormat: '{point.x} cm, {point.y} kg'
+                    }
+                }
+            },
+            
+            
+series: [{
+                name: 'Baseman',
+                color: 'red',
+                data: [
+                        [72,179],
+                        [73,190],
+                        [73,201]
+                      ]
+    
+            }, {
+                name: 'Catcher',
+                color: 'blue',
+                data: [
+                    [72,215],
+                    [72,197],
+                  [70,190]] 
+                
+            }, {
+                name: 'Infielder',
+                color: 'purple',
+                data: [
+                    [73,180],
+                    [70,180]
+                  ]
+            }, {
+                name: 'Pitcher',
+                color: 'green',
+                data: [
+                    [74,180],
+                    [73,180],
+                    [73,190],
+                    [74,189],
+                    [72,170],
+                    [75,190],
+                    [72,170],
+                    [73,211],
+                    [74,207],
+                    [72,168],
+                    [72,170],
+                    [74,174],
+                    [75,191],
+                    [74,210],
+                    [75,185],
+                    [78,226],
+                    [80,270]
+                  ]
+                
+            }, {
+                name: 'Outfield',
+                color: 'yellow',
+                data: [
+                    [67,170],
+                    [69,165],
+                    [74,180],
+                    [71,200],
+                    [74,175],
+                    [69,197],
+                    [69,171]
+                  ]
+                
+            }, {
+                name: 'Short Stop',
+                color: 'orange',
+                data: [
+                    [69,171],
+                    [74,200]
+                  ]
+                
+            }]
+        });
+        
+    });
+    
+    //slugging and batting average chart
+    $(function () {
+        $('#container_batting').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Batting Averages vs Slugging Averages'
+            },
+            xAxis: {
+                categories: ['Wood Myers', 'Skye Bolt', 'Tom Zengel', 'Michael Massardo', 'Adrian Chacon', 'Zach Daly']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Hitting'
+                }
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent'
+                }
+            },
+                series: [{
+                name: 'Batting Average',
+                data: [.378, .172, .385, .286, .263, .235]
+            }, {
+                name: 'Slugging Average',
+                data: [.405, .172, .615, .286, .368, .412]
+           
+            }]
+        });
+    });
+    
+            
+            
+            
+            
+        </script>
+
+        {% block css %}
+        {% endblock %}
+    </head>
+    
+    
+    <body>
+        
+    <div class="container_base">
+        
+        <div class="home_header">
+            <h1 class="home_header">There is only one Carolina.</h1>
+        </div>
+    <nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    
+    <!--<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">-->
+    <!-- Brand and toggle get grouped for better mobile display -->
+    
+    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Tar Heel Sports</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+         <li><a href="#">News</a></li>
+        <li><a href="#">Calendar</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Women's Teams <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Baseketball</a></li>
+            <li><a href="#">Cross Country</a></li>
+            <li><a href="#">Fencing</a></li>
+            <li><a href="#">Field Hockey</a></li>
+            <li><a href="#">Golf</a></li>
+            <li><a href="#">Lacrosse</a></li>
+            <li><a href="#">Soccer</a></li>
+            <li><a href="#">Swimming & Diving</a></li>
+            <li><a href="#">Tennis</a></li>
+            <li><a href="#">Track & Field</a></li>
+            <li><a href="#">Gymnastics</a></li>
+            <li><a href="#">Rowing</a></li>
+            <li><a href="#">Softball</a></li>
+            <li><a href="#">Volleyball</a></li>
+            <li class="divider"></li>
+            <li><a href="#">See All Women's Athletic Teams</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Men's Teams <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/players/">Baseball</a></li>
+            <li><a href="#">Baseketball</a></li>
+            <li><a href="#">Cross Country</a></li>
+            <li><a href="#">Fencing</a></li>
+            <li><a href="#">Football</a></li>
+            <li><a href="#">Golf</a></li>
+            <li><a href="#">Lacrosse</a></li>
+            <li><a href="#">Soccer</a></li>
+            <li><a href="#">Swimming & Diving</a></li>
+            <li><a href="#">Tennis</a></li>
+            <li><a href="#">Track & Field</a></li>
+            <li><a href="#">Wrestling</a></li>
+            <li class="divider"></li>
+            <li><a href="#">See All Men's Athletic Teams</a></li>
+          </ul>
+        </li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Multimedia<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Video</a></li>
+            <li><a href="#">Photo</a></li>
+            <li><a href="#">Graphs and Stats</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Social Media</a></li>
+          </ul>
+        </li>
+        
+        <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Go</button>
+      </form>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+    {% block content %}
+           
+       
+    {% endblock %}
+    
+    <div id="footer">Josie Hollingsworth</div>
+    </body>
+    
+    </div>
+    </html>
+
+
+    
+    </body>

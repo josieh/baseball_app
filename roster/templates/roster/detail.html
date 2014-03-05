@@ -1,0 +1,60 @@
+<!-- new file: roster/templates/roster/detail.html -->
+
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<p><a href="/players">Baseball Team</a></p>
+<div class="col-md-9">
+<h2>Get to know {{ player.year}} {{ player.name}} </h2>
+</div>
+<div class="col-md-3">
+<img class="floatleft" src="{{ player.imgurl }}">
+</div>
+<div class="row">
+
+<div class="col-md-12">
+    
+    
+    
+    <figure class="floatright">
+    <img src="{{ player.action }}" alt="action">
+        <figcaption>{{ player.position}} {{ player.name}} in action on the field. </figcaption>
+    </figure>
+       
+    <ul class="detail">
+        <li class="detail"><a href="#">Jersey Number: {{ player.number }} </a></li>
+        <li class="detail"><a href="#">Dominant Hand: {{ player.dominant_hand }}</a></li>
+        <li class="detail"><a href="#">Position: {{ player.position }}</a></li>
+        <li class="detail"><a href="#">Height: {{ player.height }} </a></li>
+        <li class="detail"><a href="#">Weight: {{ player.weight }} </a></li>
+        <li class="detail"><a href="#">Year in School: {{ player.year }}</a></li>
+        <li class="detail"><a href="#">Hometown: {{ player.hometown }} </a></li>
+        <li class="detail"><a href="#">High School: {{ player.high_school }} </a></li>
+        <li class="detail"><a href="#">Batting Average: {{ player.batting_avg }} </a></li>
+        <li class="detail"><a href="#">Games Player vs Games Started: {{ player.gp_gs }} </a></li>
+        <li class="detail"><a href="#">At Bats: {{ player.at_bats }} </a></li>
+        <li class="detail"><a href="#">Runs this Season: {{ player.runs }} </a></li>
+        <li class="detail"><a href="#">Hits this Season: {{ player.hits }} </a></li>
+        <li class="detail"><a href="#">Doubles: {{ player.doubles }} </a></li>
+        <li class="detail"><a href="#">Homeruns: {{ player.homeruns }} </a></li>
+        <li class="detail"><a href="#">RBI or runs batted in: {{ player.rbi }} </a></li>
+        <li class="detail"><a href="#">Total Bases: {{ player.total_bases }} </a></li>
+        <li class="detail"><a href="#">Slugging Percentage: {{ player.slugging }} </a></li>
+        <li class="detail"><a href="#">Walks: {{ player.walks }} </a></li>
+        <li class="detail"><a href="#">Strikeouts: {{ player.strikeouts }} </a></li>
+        <li class="detail"><a href="#">On Base Percentage: {{ player.on_base_percentage }} </a></li>
+        <li class="detail"><a href="#">Assists: {{ player.assists }} </a></li>
+        <li class="detail"><a href="#">Errors: {{ player.errors }} </a></li>    
+    </ul>
+</div>
+
+
+
+<div id="container_detailchart" style= margin: 0 auto"></div>
+
+</div>
+<footer>Photos courtesty of <a href="http://www.goheels.com/">Go Heels.com</a></footer>
+
+{% endblock %}
